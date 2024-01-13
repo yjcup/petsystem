@@ -17,7 +17,7 @@ import com.google.code.kaptcha.Producer;
 import com.ruoyi.common.core.controller.BaseController;
 
 /**
- * 图片验证码（支持算术形式）
+ * 图片验证码（支持算术形式） // 图形界面的后端接口 不用管
  * 
  * @author ruoyi
  */

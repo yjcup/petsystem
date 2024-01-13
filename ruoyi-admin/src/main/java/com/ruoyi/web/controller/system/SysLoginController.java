@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
@@ -26,6 +27,7 @@ import com.ruoyi.framework.web.service.ConfigService;
  * @author ruoyi
  */
 @Controller
+@RequestMapping("/admin")
 public class SysLoginController extends BaseController
 {
     /**
@@ -40,6 +42,8 @@ public class SysLoginController extends BaseController
     @GetMapping("/login")
     public String login(HttpServletRequest request, HttpServletResponse response, ModelMap mmap)
     {
+//        StringBuffer requestURL = request.getRequestURL();
+//        System.out.println(requestURL.toString());
         // 如果是Ajax请求，返回Json字符串。
         if (ServletUtils.isAjaxRequest(request))
         {

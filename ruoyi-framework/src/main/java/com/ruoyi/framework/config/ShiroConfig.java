@@ -118,6 +118,10 @@ public class ShiroConfig
     @Value("${shiro.user.loginUrl}")
     private String loginUrl;
 
+    @Value("${shiro.user.logoutUrl}")
+    private String logoutUrl;
+
+
     /**
      * 权限认证失败地址
      */
@@ -257,7 +261,7 @@ public class ShiroConfig
     public LogoutFilter logoutFilter()
     {
         LogoutFilter logoutFilter = new LogoutFilter();
-        logoutFilter.setLoginUrl(loginUrl);
+        logoutFilter.setLoginUrl(logoutUrl);
         return logoutFilter;
     }
 
@@ -291,12 +295,15 @@ public class ShiroConfig
         // 设置前台网站不拦截
         filterChainDefinitionMap.put("/movie/**","anon");
         filterChainDefinitionMap.put("/assets/**","anon");
+        filterChainDefinitionMap.put("/index","anon");
+        filterChainDefinitionMap.put("/","anon");
+
         // 退出 logout地址，shiro去清除session
-        filterChainDefinitionMap.put("/logout", "logout");
+        filterChainDefinitionMap.put("/admin/logout", "logout");
         // 不需要拦截的访问
-        filterChainDefinitionMap.put("/login", "anon,captchaValidate");
+        filterChainDefinitionMap.put("/admin/login", "anon,captchaValidate");
         // 注册相关
-        filterChainDefinitionMap.put("/register", "anon,captchaValidate");
+        filterChainDefinitionMap.put("/admin/register", "anon,captchaValidate");
         // 系统权限列表
         // filterChainDefinitionMap.putAll(SpringUtils.getBean(IMenuService.class).selectPermsAll());
 

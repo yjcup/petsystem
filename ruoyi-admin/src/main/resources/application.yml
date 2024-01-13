@@ -92,11 +92,13 @@ pagehelper:
 shiro:
   user:
     # 登录地址
-    loginUrl: /login
+    loginUrl: /index
     # 权限认证失败地址
-    unauthorizedUrl: /unauth
+    unauthorizedUrl: /admin/unauth
+    # 登出地址
+    logoutUrl: /admin/login
     # 首页地址
-    indexUrl: /index
+    indexUrl: /movie/index
     # 验证码开关
     captchaEnabled: true
     # 验证码类型 math 数字计算 char 字符验证
