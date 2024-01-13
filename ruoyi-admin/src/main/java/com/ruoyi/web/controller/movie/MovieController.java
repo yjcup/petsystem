@@ -42,4 +42,8 @@ public class MovieController {
     public String getMovies(){
         return "movie/moviegridfw";
     }
+    @GetMapping("/moviesingle")
+    public String getMovieSingle(){
+        return "movie/moviesingle";
+    }
 }
