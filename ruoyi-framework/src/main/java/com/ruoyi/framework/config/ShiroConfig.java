@@ -293,8 +293,6 @@ public class ShiroConfig
         filterChainDefinitionMap.put("/ruoyi/**", "anon");
         filterChainDefinitionMap.put("/captcha/captchaImage**", "anon");
         // 设置前台网站不拦截
-        filterChainDefinitionMap.put("/movie/**","anon");
-        filterChainDefinitionMap.put("/assets/**","anon");
         filterChainDefinitionMap.put("/index","anon");
         filterChainDefinitionMap.put("/","anon");
 

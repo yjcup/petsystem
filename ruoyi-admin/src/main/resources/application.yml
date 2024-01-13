@@ -98,7 +98,7 @@ shiro:
     # 登出地址
     logoutUrl: /admin/login
     # 首页地址
-    indexUrl: /movie/index
+    indexUrl: /index
     # 验证码开关
     captchaEnabled: true
     # 验证码类型 math 数字计算 char 字符验证
