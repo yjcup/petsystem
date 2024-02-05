@@ -9,7 +9,7 @@ ruoyi:
   # 实例演示开关
   demoEnabled: true
   # 文件路径 示例（ Windows配置D:/ruoyi/uploadPath，Linux配置 /home/ruoyi/uploadPath）
-  profile: /Users/yjc/project/backend/demo/MovieRecommendationSystem/ruoyi-admin/src/main/resources/upload
+  profile: /Users/yjc/project/backend/demo/pilot/ruoyi-admin/src/main/resources/upload
   # 获取ip地址开关
   addressEnabled: false
 
@@ -74,7 +74,7 @@ spring:
       enabled: true
 
 # MyBatis
-mybatis:
+mybatis-plus:
   # 搜索指定包别名
   typeAliasesPackage: com.ruoyi.**.domain
   # 配置mapper的扫描，找到所有的mapper.xml映射文件
