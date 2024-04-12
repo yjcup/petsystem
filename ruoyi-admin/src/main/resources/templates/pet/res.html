@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+  <head>
+
+  	<meta charset="utf-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  	<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+  	<title>Checkout - Getyootech - Gadgets Ecommerce Site Template</title>
+  	<link rel="shortcut icon" href="assets/images/favourite_icon.svg">
+
+  	<!-- fraimwork - css include -->
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
+
+    <!-- icon font - css include -->
+    <link rel="stylesheet" type="text/css" href="assets/css/fontawesome.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/stroke-gap-icons.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/icofont.css">
+
+    <!-- animation - css include -->
+    <link rel="stylesheet" type="text/css" href="assets/css/animate.css">
+
+    <!-- carousel - css include -->
+    <link rel="stylesheet" type="text/css" href="assets/css/slick.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/slick-theme.css">
+
+    <!-- popup - css include -->
+    <link rel="stylesheet" type="text/css" href="assets/css/magnific-popup.css">
+
+    <!-- jquery-ui - css include -->
+    <link rel="stylesheet" type="text/css" href="assets/css/jquery-ui.css">
+
+    <!-- select option - css include -->
+    <link rel="stylesheet" type="text/css" href="assets/css/nice-select.css">
+
+    <!-- custom - css include -->
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+      <link href="//unpkg.com/layui@2.9.3/dist/css/layui.css" rel="stylesheet">
+
+  </head>
+
+
+  <body>
+
+    <!-- body_wrap - start -->
+    <div class="body_wrap">
+
+      <!-- backtotop - start -->
+      <div class="backtotop">
+        <a href="#" class="scroll">
+          <i class="far fa-arrow-up"></i>
+        </a>
+      </div>
+      <!-- backtotop - end -->
+
+      <!-- preloader - start -->
+      <div id="preloader"></div>
+      <!-- preloader - end -->
+
+      <!-- header_section - start
+      ================================================== -->
+      <div th:replace="~{pet/common::common_header}"></div>
+      <!-- header_section - end
+      ================================================== -->
+
+      <!-- main body - start
+      ================================================== -->
+      <main>
+
+        <!-- sidebar cart - start
+        ================================================== -->
+        <!-- sidebar cart - end
+        ================================================== -->
+
+        <!-- breadcrumb_section - start
+        ================================================== -->
+        <div class="breadcrumb_section">
+          <div class="container">
+            <ul class="breadcrumb_nav ul_li">
+              <li><a href="index.html">Home</a></li>
+              <li>Check Out</li>
+            </ul>
+          </div>
+        </div>
+        <!-- breadcrumb_section - end
+        ================================================== -->
+
+        <!-- checkout_section - start
+        ================================================== -->
+        <section class="checkout_section section_space">
+          <div class="container">
+            <form action="javascript:;" id="form1">
+<!--              <div class="form_area">-->
+<!--                <div class="reg_coupon_item">-->
+<!--                  <div class="content_wrap bg_default_yellow">-->
+<!--                    <button type="button" data-bs-toggle="collapse" data-bs-target="#login_collapse" aria-expanded="false" aria-controls="login_collapse">-->
+<!--                      <i class="fas fa-info-circle"></i>-->
+<!--                      <strong>Returning customer?</strong> Click here to login-->
+<!--                    </button>-->
+<!--                  </div>-->
+<!--                  <div class="collapse" id="login_collapse">-->
+<!--                    <div class="card card-body">-->
+<!--                      <div class="row">-->
+<!--                        <div class="col col-md-6 col-sm-6">-->
+<!--                          <div class="form_item">-->
+<!--                            <input type="email" name="email" placeholder="Your Email">-->
+<!--                          </div>-->
+<!--                        </div>-->
+<!--                        <div class="col col-md-6 col-sm-6">-->
+<!--                          <div class="form_item">-->
+<!--                            <input type="password" name="password" placeholder="Your Password">-->
+<!--                          </div>-->
+<!--                        </div>-->
+<!--                      </div>-->
+<!--                      <div class="btns_group">-->
+<!--                        <div class="checkbox_item">-->
+<!--                          <input id="remember_me" type="checkbox">-->
+<!--                          <label for="remember_me">Remember Me</label>-->
+<!--                        </div>-->
+<!--                        <button type="submit" class="btn btn_primary">Login Now</button>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+
+<!--                <div class="reg_coupon_item">-->
+<!--                  <div class="content_wrap bg_default_blue">-->
+<!--                    <button type="button" data-bs-toggle="collapse" data-bs-target="#coupon_collapse" aria-expanded="false" aria-controls="coupon_collapse">-->
+<!--                      <i class="fas fa-info-circle"></i>-->
+<!--                      <strong>Have a coupon? </strong> Click here to enter your code-->
+<!--                    </button>-->
+<!--                  </div>-->
+<!--                  <div class="collapse" id="coupon_collapse">-->
+<!--                    <div class="card card-body">-->
+<!--                      <div class="form_item">-->
+<!--                        <input type="text" name="coupon" placeholder="Coupon Code">-->
+<!--                      </div>-->
+<!--                      <button type="submit" class="btn btn_primary">Apply Coupon</button>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+
+              <div class="checkout_widget bg-light" style="margin-bottom: 0px">
+                <h3 class="checkout_widget_title">预约洗护</h3>
+
+                <div class="select_option clearfix">
+                  <h4 class="input_title">类别</h4>
+                  <select name="caretype" th:with="type=${@dict.getType('care_type')}">
+                    <option data-display="选择洗护类型">选择洗护类型</option>
+                      <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
+                      <!--                    <option value="5">United Kingdom (UK)</option>-->
+                  </select>
+                </div>
+
+                <div class="row">
+                  <div class="col col-md-12 col-sm-12">
+                    <div class="form_item">
+                      <h4 class="input_title">宠物昵称</h4>
+                      <input type="text" name="petname" placeholder="">
+                    </div>
+                  </div>
+<!--                  <div class="col col-md-6 col-sm-6">-->
+<!--                    <div class="form_item">-->
+<!--                      <h4 class="input_title">Last Name</h4>-->
+<!--                      <input type="text" name="lastname" placeholder="Last Name *">-->
+<!--                    </div>-->
+<!--                  </div>-->
+                </div>
+
+<!--                <div class="form_item">-->
+<!--                  <h4 class="input_title">宠物类型</h4>-->
+<!--                  <input type="text" name="pettype" placeholder="">-->
+<!--                </div>-->
+
+                <div class="form_item">
+                  <h4 class="input_title">用户姓名</h4>
+                  <input type="text" name="name" placeholder="">
+<!--                  <input type="text" name="apartmentaddress" placeholder="Apartment, suite, unit etc. (optional)">-->
+                </div>
+
+                <div class="form_item">
+                  <h4 class="input_title">预约时间</h4>
+                  <input type="datetime-local" name="date" placeholder="">
+                </div>
+
+<!--                <div class="row">-->
+<!--                  <div class="col col-md-6 col-sm-6">-->
+<!--                    <div class="form_item">-->
+<!--                      <h4 class="input_title">Country *</h4>-->
+<!--                      <input type="text" name="country" placeholder="Country">-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                  <div class="col col-md-6 col-sm-6">-->
+<!--                    <div class="form_item">-->
+<!--                      <h4 class="input_title">Postcode / Zip *</h4>-->
+<!--                      <input type="text" name="postcode" placeholder="Postcode / Zip">-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+
+                <div class="form_item mb-5">
+                  <h4 class="input_title">联系方式</h4>
+<!--                  <input type="email" name="email" placeholder="Email Address">-->
+                  <input type="tel" name="contact" placeholder="">
+                </div>
+
+                <div class="checkout_widget_title">
+                  <h3>备注消息</h3>
+                </div>
+                <div class="form_item note_textarea mb-0">
+<!--                  <h4 class="input_title">Other Note</h4>-->
+                  <textarea name="message" placeholder=""></textarea>
+                </div>
+              </div>
+
+
+              <div class="checkout_payment_method">
+                <ul class="ul_li_block" >
+                  <li style="width: 100%">
+
+                    <div class="directly_payment_info">
+                      宠物地址
+                    </div>
+                  </li>
+
+                </ul>
+                <div class="load_more" style="margin-top: 0px">
+                  <button type="submit" class="btn btn_primary w-100">立即预定</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </section>
+        <!-- checkout_section - end
+        ================================================== -->
+
+        <!-- newsletter_section - start
+        ================================================== -->
+        <!-- newsletter_section - end
+        ================================================== -->
+
+      </main>
+      <!-- main body - end
+      ================================================== -->
+
+      <!-- footer_section - start
+      ================================================== -->
+      <!-- footer_section - end
+      ================================================== -->
+
+    </div>
+    <!-- body_wrap - end -->
+
+    <!-- fraimwork - jquery include -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/popper.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/bootstrap5-dropdown-ml-hack.js"></script>
+
+    <!-- carousel - jquery include -->
+    <script src="assets/js/slick.min.js"></script>
+
+    <!-- popup - jquery include -->
+    <script src="assets/js/magnific-popup.min.js"></script>
+
+    <!-- jquery-ui - jquery include -->
+    <script src="assets/js/jquery-ui.js"></script>
+
+    <!-- off canvas sidebar - jquery include -->
+    <script src="assets/js/mCustomScrollbar.js"></script>
+
+    <!-- select option - jquery include -->
+    <script src="assets/js/nice-select.min.js"></script>
+
+    <!-- countdown timer - jquery include -->
+    <script src="assets/js/countdown.js"></script>
+
+    <!-- counter up - jquery include -->
+    <script src="assets/js/counterup.min.js"></script>
+    <script src="assets/js/waypoints.min.js"></script>
+
+    <!-- custom - jquery include -->
+    <script src="assets/js/main.js"></script>
+    <script src="//unpkg.com/layui@2.9.3/dist/layui.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            $('#form1').submit(function(event){
+                // Prevent default form submission
+                event.preventDefault();
+
+                // Serialize form data
+                var formData = $(this).serialize();
+
+                // Your backend URL to handle form submission
+                var backendURL = '/pet/order';
+
+                // AJAX request to submit form data
+                $.ajax({
+                    type: 'POST',
+                    url: backendURL,
+                    data: formData,
+                    success: function(response){
+                        // Handle successful response from the backend
+                        console.log('Form submitted successfully');
+                        $('#form1')[0].reset();
+                        layui.use(function () {
+                                var layer = layui.layer;
+                                layer.alert("添加成功😊！！！")})
+                        console.log(response); // You can process the response here if needed
+                    },
+                    error: function(xhr, status, error){
+                        // Handle errors
+                        console.error('Error submitting form:', error);
+                    }
+                });
+            });
+        });
+    </script>
+  </body>
+</html>

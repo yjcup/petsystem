@@ -295,6 +295,20 @@ public class ShiroConfig
         // 设置前台网站不拦截
         filterChainDefinitionMap.put("/index","anon");
         filterChainDefinitionMap.put("/","anon");
+        filterChainDefinitionMap.put("/shop","anon");
+        filterChainDefinitionMap.put("/test","anon");
+
+//        filterChainDefinitionMap.put("/adopt","anon");
+//        filterChainDefinitionMap.put("/pet/**","anon");
+        filterChainDefinitionMap.put("/profile/**","anon");
+        filterChainDefinitionMap.put("/product/**","anon");
+//        filterChainDefinitionMap.put("/reservation","anon");
+//        filterChainDefinitionMap.put("/cart","anon");
+        filterChainDefinitionMap.put("/addcart/**","anon");
+        filterChainDefinitionMap.put("/deletecart/**","anon");
+        filterChainDefinitionMap.put("/getpetname/**","anon");
+
+        filterChainDefinitionMap.put("/checkout","anon");
 
         // 退出 logout地址，shiro去清除session
         filterChainDefinitionMap.put("/admin/logout", "logout");
@@ -302,6 +316,8 @@ public class ShiroConfig
         filterChainDefinitionMap.put("/admin/login", "anon,captchaValidate");
         // 注册相关
         filterChainDefinitionMap.put("/admin/register", "anon,captchaValidate");
+        filterChainDefinitionMap.put("/assets/**", "anon,captchaValidate");
+
         // 系统权限列表
         // filterChainDefinitionMap.putAll(SpringUtils.getBean(IMenuService.class).selectPermsAll());
 

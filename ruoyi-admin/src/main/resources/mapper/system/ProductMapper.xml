@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.ProductMapper">
+    
+    <resultMap type="Product" id="ProductResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="inro"    column="inro"    />
+        <result property="des"    column="des"    />
+        <result property="img"    column="img"    />
+        <result property="imglist"    column="imglist"    />
+        <result property="inventory"    column="inventory"    />
+        <result property="price"    column="price"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <sql id="selectProductVo">
+        select id, name, inro, des, img, imglist, inventory, price, create_time from product
+    </sql>
+
+    <select id="selectProductList" parameterType="Product" resultMap="ProductResult">
+        <include refid="selectProductVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectProductById" parameterType="Long" resultMap="ProductResult">
+        <include refid="selectProductVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertProduct" parameterType="Product" useGeneratedKeys="true" keyProperty="id">
+        insert into product
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">name,</if>
+            <if test="inro != null">inro,</if>
+            <if test="des != null">des,</if>
+            <if test="img != null">img,</if>
+            <if test="imglist != null">imglist,</if>
+            <if test="inventory != null">inventory,</if>
+            <if test="price != null">price,</if>
+            <if test="createTime != null">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null">#{name},</if>
+            <if test="inro != null">#{inro},</if>
+            <if test="des != null">#{des},</if>
+            <if test="img != null">#{img},</if>
+            <if test="imglist != null">#{imglist},</if>
+            <if test="inventory != null">#{inventory},</if>
+            <if test="price != null">#{price},</if>
+            <if test="createTime != null">#{createTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateProduct" parameterType="Product">
+        update product
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">name = #{name},</if>
+            <if test="inro != null">inro = #{inro},</if>
+            <if test="des != null">des = #{des},</if>
+            <if test="img != null">img = #{img},</if>
+            <if test="imglist != null">imglist = #{imglist},</if>
+            <if test="inventory != null">inventory = #{inventory},</if>
+            <if test="price != null">price = #{price},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteProductById" parameterType="Long">
+        delete from product where id = #{id}
+    </delete>
+
+    <delete id="deleteProductByIds" parameterType="String">
+        delete from product where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+
+  <head>
+
+  	<meta charset="utf-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  	<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+  	<title>宠物</title>
+  	<link rel="shortcut icon" href="assets/images/favourite_icon.svg">
+
+  	<!-- fraimwork - css include -->
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
+
+    <!-- icon font - css include -->
+    <link rel="stylesheet" type="text/css" href="assets/css/fontawesome.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/stroke-gap-icons.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/icofont.css">
+
+    <!-- animation - css include -->
+    <link rel="stylesheet" type="text/css" href="assets/css/animate.css">
+
+    <!-- carousel - css include -->
+    <link rel="stylesheet" type="text/css" href="assets/css/slick.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/slick-theme.css">
+
+    <!-- popup - css include -->
+    <link rel="stylesheet" type="text/css" href="assets/css/magnific-popup.css">
+
+    <!-- jquery-ui - css include -->
+    <link rel="stylesheet" type="text/css" href="assets/css/jquery-ui.css">
+
+    <!-- select option - css include -->
+    <link rel="stylesheet" type="text/css" href="assets/css/nice-select.css">
+
+    <!-- custom - css include -->
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+  </head>
+
+
+  <body>
+
+    <!-- body_wrap - start -->
+    <div class="body_wrap">
+
+      <!-- backtotop - start -->
+      <div class="backtotop">
+        <a href="#" class="scroll">
+          <i class="far fa-arrow-up"></i>
+        </a>
+      </div>
+      <!-- backtotop - end -->
+
+      <!-- preloader - start -->
+      <div id="preloader"></div>
+      <!-- preloader - end -->
+
+      <!-- header_section - start
+      ================================================== -->
+      <div th:replace="~{pet/common::common_header}"></div>
+      <!-- header_section - end
+      ================================================== -->
+
+      <!-- main body - start
+      ================================================== -->
+      <main>
+
+        <!-- sidebar cart - start
+        ================================================== -->
+        <div class="sidebar-menu-wrapper">
+          <div class="cart_sidebar">
+            <button type="button" class="close_btn"><i class="fal fa-times"></i></button>
+
+            <ul class="cart_items_list ul_li_block mb_30 clearfix">
+              <li>
+                <div class="item_image">
+                  <img src="assets/images/cart_img_1.webp" alt="Getyootech - Gadgets Ecommerce Site Template">
+                </div>
+                <div class="item_content">
+                  <h4 class="item_title">Yellow Blouse</h4>
+                  <span class="item_price">$30.00</span>
+                </div>
+                <button type="button" class="remove_btn"><i class="fal fa-trash-alt"></i></button>
+              </li>
+              <li>
+                <div class="item_image">
+                  <img src="assets/images/cart_img_2.webp" alt="Getyootech - Gadgets Ecommerce Site Template">
+                </div>
+                <div class="item_content">
+                  <h4 class="item_title">Yellow Blouse</h4>
+                  <span class="item_price">$30.00</span>
+                </div>
+                <button type="button" class="remove_btn"><i class="fal fa-trash-alt"></i></button>
+              </li>
+              <li>
+                <div class="item_image">
+                  <img src="assets/images/cart_img_1.webp" alt="Getyootech - Gadgets Ecommerce Site Template">
+                </div>
+                <div class="item_content">
+                  <h4 class="item_title">Yellow Blouse</h4>
+                  <span class="item_price">$30.00</span>
+                </div>
+                <button type="button" class="remove_btn"><i class="fal fa-trash-alt"></i></button>
+              </li>
+            </ul>
+
+            <ul class="total_price ul_li_block mb_30 clearfix">
+              <li>
+                <span>Subtotal:</span>
+                <span>$90</span>
+              </li>
+              <li>
+                <span>Vat 5%:</span>
+                <span>$4.5</span>
+              </li>
+              <li>
+                <span>Discount 20%:</span>
+                <span>- $18.9</span>
+              </li>
+              <li>
+                <span>Total:</span>
+                <span>$75.6</span>
+              </li>
+            </ul>
+
+            <ul class="btns_group ul_li_block clearfix">
+              <li><a class="btn btn_primary" href="">View Cart</a></li>
+              <li><a class="btn btn_secondary" href="res.html">Checkout</a></li>
+            </ul>
+          </div>
+
+          <div class="cart_overlay"></div>
+        </div>
+        <!-- sidebar cart - end
+        ================================================== -->
+
+        <!-- breadcrumb_section - start
+        ================================================== -->
+        <div class="breadcrumb_section">
+          <div class="container">
+            <ul class="breadcrumb_nav ul_li">
+              <li><a href="index.html">Home</a></li>
+              <li>Cart</li>
+            </ul>
+          </div>
+        </div>
+        <!-- breadcrumb_section - end
+        ================================================== -->
+
+        <!-- cart_section - start
+        ================================================== -->
+        <section class="cart_section section_space">
+          <div class="container">
+            <div class="cart_update_wrap">
+<!--              <p class="mb-0"><i class="fal fa-check-square"></i> Shipping costs updated.</p>-->
+            </div>
+
+            <div class="cart_table">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>选项</th>
+                    <th>产品</th>
+                    <th class="text-center">价格</th>
+                    <th class="text-center">数量</th>
+                    <th class="text-center">删除</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr th:each="item:${items}">
+                    <td class="text-center"><input type="checkbox" style="width: 23px;height: 23px"></td>
+                    <td class="text-center product-id" style="display: none" th:data-product-id="${item.product.getId()}"></td>
+
+                    <td>
+                      <div class="cart_product">
+                        <img src="assets/images/cart_img_1.webp" alt="Getyootech - Gadgets Ecommerce Site Template" th:src="${item.product.getImg()}">
+                        <h3><a href="shop_details.html" th:href="@{/product/{id}(id=${item.product.getId()})}">[[${item.product.getName()}]]</a></h3>
+                      </div>
+                    </td>
+                    <td class="text-center"><span class="price_text">$[[${item.product.getPrice()}]]</span></td>
+                    <td class="text-center">
+                      <form action="javascript:;">
+                        <div class="quantity_input">
+                          <button type="button" class="input_number_decrement">
+                            <i class="fal fa-minus"></i>
+                          </button>
+                          <input class="input_number" type="text" value="1" th:value="${item.getNumber()}">
+                          <button type="button" class="input_number_increment">
+                            <i class="fal fa-plus"></i>
+                          </button>
+                        </div>
+                      </form>
+                    </td>
+                    <td class="text-center"><button type="button" class="remove_btn"><i class="fal fa-trash-alt"></i></button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="cart_btns_wrap">
+              <div class="row">
+                <div class="col col-lg-6">
+<!--                  <form action="javascript:;">-->
+<!--                    <div class="coupon_form form_item mb-0">-->
+<!--                      <input type="text" name="coupon" placeholder="Coupon Code...">-->
+<!--                      <button type="submit" class="btn btn_primary">Apply Coupon</button>-->
+<!--                      <div class="info_icon">-->
+<!--                        <i class="fas fa-info-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="Your Info Here"></i>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </form>-->
+                </div>
+
+                <div class="col col-lg-6">
+                  <ul class="btns_group ul_li_right">
+<!--                    <li><a class="btn border_black" href="#!">Update Cart</a></li>-->
+                    <li><a class="btn btn_dark" href="#!">结算</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+        <!-- cart_section - end
+        ================================================== -->
+
+        <!-- newsletter_section - start
+        ================================================== -->
+        <!-- newsletter_section - end
+        ================================================== -->
+
+      </main>
+      <!-- main body - end
+      ================================================== -->
+
+      <!-- footer_section - start
+      ================================================== -->
+      <!-- footer_section - end
+      ================================================== -->
+
+    </div>
+    <!-- body_wrap - end -->
+
+    <!-- fraimwork - jquery include -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/popper.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/bootstrap5-dropdown-ml-hack.js"></script>
+
+    <!-- carousel - jquery include -->
+    <script src="assets/js/slick.min.js"></script>
+
+    <!-- popup - jquery include -->
+    <script src="assets/js/magnific-popup.min.js"></script>
+
+    <!-- jquery-ui - jquery include -->
+    <script src="assets/js/jquery-ui.js"></script>
+
+    <!-- off canvas sidebar - jquery include -->
+    <script src="assets/js/mCustomScrollbar.js"></script>
+
+    <!-- select option - jquery include -->
+    <script src="assets/js/nice-select.min.js"></script>
+
+    <!-- countdown timer - jquery include -->
+    <script src="assets/js/countdown.js"></script>
+
+    <!-- counter up - jquery include -->
+    <script src="assets/js/counterup.min.js"></script>
+    <script src="assets/js/waypoints.min.js"></script>
+
+    <!-- custom - jquery include -->
+    <script src="assets/js/main.js"></script>
+
+  </body>
+<script>
+
+
+  $(document).ready(function() {
+    // 给所有的删除按钮添加点击事件处理程序
+    $('.remove_btn').click(function() {
+      // 获取当前行的产品ID
+      var productId = $(this).closest('tr').find('.product-id').attr('data-product-id');
+
+      // 发送AJAX请求到后端
+      $.ajax({
+        type: 'get', // 或者您需要的HTTP方法
+        url: '/deletecart/'+productId, // 替换为您的后端端点
+        // data: { productId: productId }, // 将产品ID发送到后端
+        success: function(response) {
+          // 在成功时执行的操作
+          location.reload();
+          console.log('成功发送产品ID到后端');
+          // 这里可以根据需要执行其他操作，例如刷新页面或更新购物车信息等
+        },
+        error: function(xhr, status, error) {
+          // 在发生错误时执行的操作
+          console.error('发生错误:', error);
+          // 根据需要执行适当的错误处理操作
+        }
+      });
+    });
+  });
+
+
+
+  function submitSelectedItems() {
+    // 初始化一个空数组，用于存储选中商品的信息
+    var selectedItems = [];
+
+    // 遍历所有的复选框
+    $('input[type="checkbox"]:checked').each(function() {
+      // 找到当前行
+      var row = $(this).closest('tr');
+
+      // 获取商品ID
+      var productId = row.find('.product-id').data('product-id');
+
+      // 获取商品名称
+      var productName = row.find('h3 a').text();
+
+      // 获取商品数量
+      var quantity = row.find('.input_number').val();
+
+      // 构建商品对象并添加到数组中
+      selectedItems.push({
+        id: productId,
+        // name: productName,
+        quantity: quantity
+      });
+    });
+    console.log(selectedItems)
+
+    // 发送ajax请求
+    $.ajax({
+      url: '/checkoutpost',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify(selectedItems),
+      success: function(response) {
+        // 处理成功响应
+        console.log('Success:', response);
+        window.location.href = '/checkout'
+      },
+      error: function(xhr, status, error) {
+        // 处理错误
+        console.error('Error:', error);
+      }
+    });
+  }
+  $(document).ready(function() {
+    // 当文档加载完成后，绑定结算按钮的点击事件
+    $('.btn_dark').on('click', function(event) {
+      // 阻止默认行为，以防止按钮链接跳转
+      event.preventDefault();
+
+      // 调用提交商品函数
+      submitSelectedItems();
+    });
+  });
+
+</script>
+</html>

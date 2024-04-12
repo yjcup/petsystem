@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.PetMapper">
+    
+    <resultMap type="Pet" id="PetResult">
+        <result property="id"    column="id"    />
+        <result property="title"    column="title"    />
+        <result property="intro"    column="intro"    />
+        <result property="des"    column="des"    />
+        <result property="img"    column="img"    />
+        <result property="status"    column="status"    />
+        <result property="userId"    column="user_id"    />
+
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <sql id="selectPetVo">
+        select id, title, intro, des, img, status,user_id, create_time from pet
+    </sql>
+
+    <select id="selectPetList" parameterType="Pet" resultMap="PetResult">
+        <include refid="selectPetVo"/>
+        <where>  
+            <if test="title != null  and title != ''"> and title like concat('%', #{title}, '%')</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+        </where>
+    </select>
+    
+    <select id="selectPetById" parameterType="Long" resultMap="PetResult">
+        <include refid="selectPetVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertPet" parameterType="Pet" useGeneratedKeys="true" keyProperty="id">
+        insert into pet
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="title != null">title,</if>
+            <if test="intro != null">intro,</if>
+            <if test="des != null">des,</if>
+            <if test="img != null">img,</if>
+            <if test="status != null">status,</if>
+            <if test="userId != null">user_id,</if>
+
+            <if test="createTime != null">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="title != null">#{title},</if>
+            <if test="intro != null">#{intro},</if>
+            <if test="des != null">#{des},</if>
+            <if test="img != null">#{img},</if>
+            <if test="status != null">#{status},</if>
+            <if test="userId != null">#{userId},</if>
+
+            <if test="createTime != null">#{createTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updatePet" parameterType="Pet">
+        update pet
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="title != null">title = #{title},</if>
+            <if test="intro != null">intro = #{intro},</if>
+            <if test="des != null">des = #{des},</if>
+            <if test="img != null">img = #{img},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deletePetById" parameterType="Long">
+        delete from pet where id = #{id}
+    </delete>
+
+    <delete id="deletePetByIds" parameterType="String">
+        delete from pet where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

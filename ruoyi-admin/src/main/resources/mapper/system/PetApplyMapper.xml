@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.PetApplyMapper">
+    
+    <resultMap type="PetApply" id="PetApplyResult">
+        <result property="id"    column="id"    />
+        <result property="petId"    column="pet_id"    />
+        <result property="fromId"    column="from_id"    />
+        <result property="toId"    column="to_id"    />
+        <result property="name"    column="name"    />
+        <result property="contact"    column="contact"    />
+        <result property="message"    column="message"    />
+        <result property="status"    column="status"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <sql id="selectPetApplyVo">
+        select id, pet_id, from_id, to_id, name, contact, message, status, create_time from pet_apply
+    </sql>
+
+    <select id="selectPetApplyList" parameterType="PetApply" resultMap="PetApplyResult">
+        <include refid="selectPetApplyVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="contact != null  and contact != ''"> and contact = #{contact}</if>
+            <if test="message != null  and message != ''"> and message = #{message}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+            <if test="fromId != null  and fromId != ''"> and from_id = #{fromId}</if>
+            <if test="toId != null  and toId != ''"> and to_id = #{toId}</if>
+
+        </where>
+    </select>
+    
+    <select id="selectPetApplyById" parameterType="Long" resultMap="PetApplyResult">
+        <include refid="selectPetApplyVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertPetApply" parameterType="PetApply" useGeneratedKeys="true" keyProperty="id">
+        insert into pet_apply
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="petId != null">pet_id,</if>
+            <if test="fromId != null">from_id,</if>
+            <if test="toId != null">to_id,</if>
+            <if test="name != null">name,</if>
+            <if test="contact != null">contact,</if>
+            <if test="message != null">message,</if>
+            <if test="status != null">status,</if>
+            <if test="createTime != null">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="petId != null">#{petId},</if>
+            <if test="fromId != null">#{fromId},</if>
+            <if test="toId != null">#{toId},</if>
+            <if test="name != null">#{name},</if>
+            <if test="contact != null">#{contact},</if>
+            <if test="message != null">#{message},</if>
+            <if test="status != null">#{status},</if>
+            <if test="createTime != null">#{createTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updatePetApply" parameterType="PetApply">
+        update pet_apply
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="petId != null">pet_id = #{petId},</if>
+            <if test="fromId != null">from_id = #{fromId},</if>
+            <if test="toId != null">to_id = #{toId},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="contact != null">contact = #{contact},</if>
+            <if test="message != null">message = #{message},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deletePetApplyById" parameterType="Long">
+        delete from pet_apply where id = #{id}
+    </delete>
+
+    <delete id="deletePetApplyByIds" parameterType="String">
+        delete from pet_apply where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

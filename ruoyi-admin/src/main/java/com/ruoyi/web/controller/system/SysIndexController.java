@@ -1,9 +1,23 @@
 package com.ruoyi.web.controller.system;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+
+import com.ruoyi.common.core.domain.entity.SysRole;
+import com.ruoyi.common.utils.*;
+import com.ruoyi.system.domain.Pet;
+import com.ruoyi.system.domain.PetRes;
+import com.ruoyi.system.domain.SysOrder;
+import com.ruoyi.system.mapper.SysUserRoleMapper;
+import com.ruoyi.system.service.impl.PetResServiceImpl;
+import com.ruoyi.system.service.impl.PetServiceImpl;
+import com.ruoyi.system.service.impl.SysOrderServiceImpl;
+import com.ruoyi.system.service.impl.SysUserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -15,10 +29,6 @@ import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.core.domain.entity.SysMenu;
 import com.ruoyi.common.core.domain.entity.SysUser;
 import com.ruoyi.common.core.text.Convert;
-import com.ruoyi.common.utils.CookieUtils;
-import com.ruoyi.common.utils.DateUtils;
-import com.ruoyi.common.utils.ServletUtils;
-import com.ruoyi.common.utils.StringUtils;
 import com.ruoyi.framework.shiro.service.SysPasswordService;
 import com.ruoyi.system.service.ISysConfigService;
 import com.ruoyi.system.service.ISysMenuService;
@@ -125,12 +135,81 @@ public class SysIndexController extends BaseController
         CookieUtils.setCookie(response, "nav-style", style);
     }
 
+
+    @Autowired
+    private SysOrderServiceImpl sysOrderService;
+    @Autowired
+    private SysUserServiceImpl sysUserService;
+
+    @Autowired
+    private PetServiceImpl petService;
+    @Autowired
+    private PetResServiceImpl resService;
+
+    @Autowired
+    private SysUserRoleMapper  sysUserRoleMapper;
+
+
     // 系统介绍
     @GetMapping("/system/main")
     public String main(ModelMap mmap)
     {
         mmap.put("version", RuoYiConfig.getVersion());
-        return "main_v1";
+
+        //订单相关的表
+        //用户数 订单数 宠物数 预约数  订单变化
+        int orderssize = sysOrderService.selectSysOrderList(new SysOrder()).size();
+        int petsize = petService.selectPetList(new Pet()).size();
+        int ressize = resService.selectPetResList(new PetRes()).size();
+        int usersize = sysUserRoleMapper.countUserRoleByRoleId(100L);
+        List<SysOrder> sysOrders = sysOrderService.selectSysOrderList(new SysOrder());
+        Map<String, Integer> stringIntegerMap = countOrdersByDay(sysOrders);
+        System.out.println(stringIntegerMap);
+        mmap.put("data",mapToJsonArray(stringIntegerMap));
+        mmap.put("ordersize",orderssize);
+        mmap.put("petsize",petsize);
+        mmap.put("ressize",ressize);
+        mmap.put("usersize",usersize);
+
+        SysRole sysRole = ShiroUtils.getSysUser().getRoles().get(0);
+        if (sysRole.getRoleKey().equals("manager")){
+            return "main_v1";
+        }
+        return "/system/pet/pet";
+    }
+
+
+    public static  String mapToJsonArray(Map<String, Integer> map) {
+        StringBuilder jsonArray = new StringBuilder("[");
+        for (Map.Entry<String, Integer> entry : map.entrySet()) {
+            jsonArray.append("[gd(" + entry.getKey() + "), " + entry.getValue()+100 + "]");
+            jsonArray.append(",");
+        }
+        jsonArray.deleteCharAt(jsonArray.length() - 1); // 删除最后一个逗号
+        jsonArray.append("]");
+        System.out.println(jsonArray.toString());
+        return jsonArray.toString();
+    }
+
+    public static Map<String, Integer> countOrdersByDay(List<SysOrder> orders) {
+        Map<String, Integer> orderCounts = new HashMap<>();
+
+        for (SysOrder order : orders) {
+            // 获取订单的创建时间
+            Date createTime = order.getCreateTime();
+            // 格式化创建时间为日期字符串
+            String day = formatDateToDay(createTime);
+            // 将订单添加到对应日期的订单量中，如果该日期的订单量已存在，则将其数量加1，否则初始化为1
+            orderCounts.put(day, orderCounts.getOrDefault(day, 0) + 1);
+        }
+
+        return orderCounts;
+    }
+
+    // 将日期格式化为"yyyy-MM-dd"的字符串
+    private static String formatDateToDay(Date date) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy, MM, dd");
+        return formatter.format(date);
     }
 
     // content-main class

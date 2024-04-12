@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.PetResMapper">
+    
+    <resultMap type="PetRes" id="PetResResult">
+        <result property="id"    column="id"    />
+        <result property="petName"    column="pet_name"    />
+        <result property="petType"    column="pet_type"    />
+        <result property="resDate"    column="res_date"    />
+        <result property="name"    column="name"    />
+        <result property="contact"    column="contact"    />
+        <result property="message"    column="message"    />
+        <result property="status"    column="status"    />
+        <result property="userId"    column="user_id"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <sql id="selectPetResVo">
+        select id, pet_name, pet_type, res_date, name, contact, message, status, user_id, create_time from pet_res
+    </sql>
+
+    <select id="selectPetResList" parameterType="PetRes" resultMap="PetResResult">
+        <include refid="selectPetResVo"/>
+        <where>  
+            <if test="petName != null  and petName != ''"> and pet_name like concat('%', #{petName}, '%')</if>
+            <if test="petType != null  and petType != ''"> and pet_type = #{petType}</if>
+            <if test="resDate != null "> and res_date = #{resDate}</if>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="contact != null  and contact != ''"> and contact = #{contact}</if>
+            <if test="message != null  and message != ''"> and message = #{message}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+            <if test="userId != null "> and user_id = #{userId}</if>
+        </where>
+    </select>
+    
+    <select id="selectPetResById" parameterType="Long" resultMap="PetResResult">
+        <include refid="selectPetResVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertPetRes" parameterType="PetRes" useGeneratedKeys="true" keyProperty="id">
+        insert into pet_res
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="petName != null">pet_name,</if>
+            <if test="petType != null">pet_type,</if>
+            <if test="resDate != null">res_date,</if>
+            <if test="name != null">name,</if>
+            <if test="contact != null">contact,</if>
+            <if test="message != null">message,</if>
+            <if test="status != null">status,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="createTime != null">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="petName != null">#{petName},</if>
+            <if test="petType != null">#{petType},</if>
+            <if test="resDate != null">#{resDate},</if>
+            <if test="name != null">#{name},</if>
+            <if test="contact != null">#{contact},</if>
+            <if test="message != null">#{message},</if>
+            <if test="status != null">#{status},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="createTime != null">#{createTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updatePetRes" parameterType="PetRes">
+        update pet_res
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="petName != null">pet_name = #{petName},</if>
+            <if test="petType != null">pet_type = #{petType},</if>
+            <if test="resDate != null">res_date = #{resDate},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="contact != null">contact = #{contact},</if>
+            <if test="message != null">message = #{message},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deletePetResById" parameterType="Long">
+        delete from pet_res where id = #{id}
+    </delete>
+
+    <delete id="deletePetResByIds" parameterType="String">
+        delete from pet_res where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

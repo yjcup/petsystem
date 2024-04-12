@@ -354,6 +354,23 @@ var table = {
                     return $.common.nullToStr(value);
                 }
             },
+
+
+            imageView1: function (value, height, width, target) {
+                if ($.common.isEmpty(width)) {
+                    width = 'auto';
+                }
+                if ($.common.isEmpty(height)) {
+                    height = 'auto';
+                }
+                // blank or self
+                var _target = $.common.isEmpty(target) ? 'self' : target;
+                if ($.common.isNotEmpty(value)) {
+                    return $.common.sprintf("<img class='img-circle img-xs' style='border-radius: 0;width: 100px;height: 100px' data-height='%s' data-width='%s' data-target='%s' src='%s'/>", height, width, _target, value);
+                } else {
+                    return $.common.nullToStr(value);
+                }
+            },
             // 搜索-默认第一个form
             search: function(formId, tableId, pageNumber, pageSize) {
                 table.set(tableId);

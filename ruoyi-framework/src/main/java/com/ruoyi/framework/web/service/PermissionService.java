@@ -3,10 +3,14 @@ package com.ruoyi.framework.web.service;
 import java.beans.BeanInfo;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
+
+import com.ruoyi.common.utils.ShiroUtils;
+import com.ruoyi.system.service.impl.PetServiceImpl;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.common.utils.StringUtils;
 
@@ -60,6 +64,23 @@ public class PermissionService
         return hasAnyPermissions(permissions, PERMISSION_DELIMETER) ? StringUtils.EMPTY : NOACCESS;
     }
 
+    public boolean getFlag(){
+        return ShiroUtils.getSysUser() == null;
+    }
+
+
+    
+    @Autowired
+    PetServiceImpl petService;
+
+    // 根据宠物id来返回宠物名称
+    public String getPetName(String id){
+        System.out.println(id);
+        return "123";
+    }
+    
+    
+    
     /**
      * 验证用户是否具备某角色，无权限返回hidden用于隐藏（如需返回Boolean使用isRole）
      * 

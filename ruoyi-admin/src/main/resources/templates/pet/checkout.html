@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+
+  <head>
+
+  	<meta charset="utf-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  	<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+  	<title>Empty Shopping Cart - Getyootech - Gadgets Ecommerce Site Template</title>
+  	<link rel="shortcut icon" href="assets/images/favourite_icon.svg">
+
+  	<!-- fraimwork - css include -->
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
+
+    <!-- icon font - css include -->
+    <link rel="stylesheet" type="text/css" href="assets/css/fontawesome.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/stroke-gap-icons.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/icofont.css">
+
+    <!-- animation - css include -->
+    <link rel="stylesheet" type="text/css" href="assets/css/animate.css">
+
+    <!-- carousel - css include -->
+    <link rel="stylesheet" type="text/css" href="assets/css/slick.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/slick-theme.css">
+
+    <!-- popup - css include -->
+    <link rel="stylesheet" type="text/css" href="assets/css/magnific-popup.css">
+
+    <!-- jquery-ui - css include -->
+    <link rel="stylesheet" type="text/css" href="assets/css/jquery-ui.css">
+
+    <!-- select option - css include -->
+    <link rel="stylesheet" type="text/css" href="assets/css/nice-select.css">
+
+    <!-- custom - css include -->
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+  </head>
+
+
+  <body>
+
+    <!-- body_wrap - start -->
+    <div class="body_wrap">
+
+      <!-- backtotop - start -->
+      <div class="backtotop">
+        <a href="#" class="scroll">
+          <i class="far fa-arrow-up"></i>
+        </a>
+      </div>
+      <!-- backtotop - end -->
+
+      <!-- preloader - start -->
+      <div id="preloader"></div>
+      <!-- preloader - end -->
+
+      <!-- header_section - start
+      ================================================== -->
+      <div th:replace="~{pet/common::common_header}"></div>
+      <!-- header_section - end
+      ================================================== -->
+
+      <!-- main body - start
+      ================================================== -->
+      <main>
+
+        <!-- sidebar cart - start
+        ================================================== -->
+        <!-- sidebar cart - end
+        ================================================== -->
+
+        <!-- breadcrumb_section - start
+        ================================================== -->
+        <div class="breadcrumb_section">
+          <div class="container">
+            <ul class="breadcrumb_nav ul_li">
+              <li><a href="index.html">Home</a></li>
+              <li>Empty Cart</li>
+            </ul>
+          </div>
+        </div>
+        <!-- breadcrumb_section - end
+        ================================================== -->
+
+        <!-- empty_cart_section - start
+        ================================================== -->
+        <section class="empty_cart_section section_space">
+          <div class="container">
+            <div class="empty_cart_content text-center">
+              <div class="row justify-content-center">
+                <div class="row">
+                  <div class="col col-lg-6">
+                    <div class="calculate_shipping">
+                      <h3 class="wrap_title">收获地址</h3>
+                        <form action="javascript:;">
+                          <div class="row">
+                            <div class="col-md-4">
+                              <div class="form_item" style="margin-top: 10%;margin-left: 25%">
+                                <h6>
+                                  收货人:</h6>
+                              </div>
+                            </div>
+                            <div class="col-md-8">
+                              <div class="form_item">
+                                <input type="text" name="name" placeholder="">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-4">
+                              <div class="form_item" style="margin-top: 10%;margin-left: 25%">
+                                <h6>联系电话:</h6>
+                              </div>
+                            </div>
+                            <div class="col-md-8">
+                              <div class="form_item">
+                                <input type="text" name="phone" placeholder="">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-4">
+                              <div class="form_item" style="margin-top: 10%;margin-left: 25%">
+                                <h6>收获地址:</h6>
+                              </div>
+                            </div>
+                            <div class="col-md-8">
+                              <div class="form_item">
+                                <input type="text" name="address" placeholder="">
+                              </div>
+                            </div>
+                          </div>
+                          <button type="submit" class="btn btn_primary">提交订单</button>
+                        </form>
+                    </div>
+                  </div>
+
+                  <div class="col col-lg-6">
+                    <div class="cart_total_table">
+                      <h3 class="wrap_title">商品清单</h3>
+                      <ul class="ul_li_block">
+                        <li th:each="item:${products}">
+                          <span>[[${item.getName()}]]*[[${item.getInventory()}]]</span>
+                          <span>$[[${item.getPrice()}]]</span>
+                          <span class="text-center product-id" style="display: none" th:data-product-id="${item.getId()}"></span>
+                        </li>
+                        <li>
+                          <span>订单总价</span>
+                          <span class="total_price">$[[${total}]]</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- empty_cart_section - end
+        ================================================== -->
+
+        <!-- newsletter_section - start
+        ================================================== -->
+        <!-- newsletter_section - end
+        ================================================== -->
+
+      </main>
+      <!-- main body - end
+      ================================================== -->
+
+      <!-- footer_section - start
+      ================================================== -->
+      <!-- footer_section - end
+      ================================================== -->
+
+    </div>
+    <!-- body_wrap - end -->
+
+    <!-- fraimwork - jquery include -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/popper.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/bootstrap5-dropdown-ml-hack.js"></script>
+
+    <!-- carousel - jquery include -->
+    <script src="assets/js/slick.min.js"></script>
+
+    <!-- popup - jquery include -->
+    <script src="assets/js/magnific-popup.min.js"></script>
+
+    <!-- jquery-ui - jquery include -->
+    <script src="assets/js/jquery-ui.js"></script>
+
+    <!-- off canvas sidebar - jquery include -->
+    <script src="assets/js/mCustomScrollbar.js"></script>
+
+    <!-- select option - jquery include -->
+    <script src="assets/js/nice-select.min.js"></script>
+
+    <!-- countdown timer - jquery include -->
+    <script src="assets/js/countdown.js"></script>
+
+    <!-- counter up - jquery include -->
+    <script src="assets/js/counterup.min.js"></script>
+    <script src="assets/js/waypoints.min.js"></script>
+
+    <!-- custom - jquery include -->
+    <script src="assets/js/main.js"></script>
+  <script>
+    $(document).ready(function() {
+      // 当表单提交时执行
+      $('form').submit(function(event) {
+        // 防止表单默认提交行为
+        event.preventDefault();
+
+        // 获取收货地址表单数据
+        var name = $('input[name="name"]').val();
+        var address = $('input[name="address"]').val();
+        var phone = $('input[name="phone"]').val();
+
+        // 构建产品数组
+        var products = [];
+        $('.ul_li_block li').each(function() {
+          var productId = $(this).find('.product-id').data('product-id');
+          var productName = $(this).find('span:first-child').text();
+          var productQuantity = parseInt($(this).find('span:first-child').text().split('*')[1]); // 假设产品数量是通过名称*数量的形式显示的
+          products.push({
+            id: productId,
+            name: productName,
+            inventory: productQuantity
+          });
+        });
+
+        // 构建要发送的数据对象
+        var data = {
+          name: name,
+          address: address,
+          phone: phone,
+          products: products
+        };
+        console.log(data)
+        // 发送 AJAX 请求
+        $.ajax({
+          type: 'POST',
+          url: '/orderpost',
+          data: JSON.stringify(data), // 转换为JSON字符串
+          contentType: 'application/json',
+          success: function(response) {
+            // 处理成功响应
+            console.log('Success:', response);
+          },
+          error: function(xhr, status, error) {
+            // 处理错误响应
+            console.error('Error:', error);
+          }
+        });
+      });
+    });
+
+  </script>
+  </body>
+</html>
