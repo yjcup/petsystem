@@ -72,178 +72,158 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="row">
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>订单</h5>
+                        <h5>订单变化柱状图</h5>
                         <div class="pull-right">
-<!--                            <div class="btn-group">-->
-<!--                                <button type="button" class="btn btn-xs btn-white active">天</button>-->
-<!--                                <button type="button" class="btn btn-xs btn-white">月</button>-->
-<!--                                <button type="button" class="btn btn-xs btn-white">年</button>-->
-<!--                            </div>-->
+                            <!-- You can add any customization options or controls here -->
                         </div>
                     </div>
                     <div class="ibox-content">
                         <div class="row">
                             <div class="col-sm-12">
-                                <div class="flot-chart">
-                                    <div class="flot-chart-content" id="flot-dashboard-chart"></div>
-                                </div>
+                                <!-- ECharts container -->
+                                <div id="echarts-container" style="width: 100%; height: 400px;"></div>
                             </div>
-<!--                            <div class="col-sm-3">-->
-<!--                                <ul class="stat-list">-->
-<!--                                    <li>-->
-<!--                                        <h2 class="no-margins">2,346</h2>-->
-<!--                                        <small>订单总数</small>-->
-<!--                                        <div class="stat-percent">48% <i class="fa fa-level-up text-navy"></i>-->
-<!--                                        </div>-->
-<!--                                        <div class="progress progress-mini">-->
-<!--                                            <div style="width: 48%;" class="progress-bar"></div>-->
-<!--                                        </div>-->
-<!--                                    </li>-->
-<!--                                    <li>-->
-<!--                                        <h2 class="no-margins ">4,422</h2>-->
-<!--                                        <small>最近一个月订单</small>-->
-<!--                                        <div class="stat-percent">60% <i class="fa fa-level-down text-navy"></i>-->
-<!--                                        </div>-->
-<!--                                        <div class="progress progress-mini">-->
-<!--                                            <div style="width: 60%;" class="progress-bar"></div>-->
-<!--                                        </div>-->
-<!--                                    </li>-->
-<!--                                    <li>-->
-<!--                                        <h2 class="no-margins ">9,180</h2>-->
-<!--                                        <small>最近一个月销售额</small>-->
-<!--                                        <div class="stat-percent">22% <i class="fa fa-bolt text-navy"></i>-->
-<!--                                        </div>-->
-<!--                                        <div class="progress progress-mini">-->
-<!--                                            <div style="width: 22%;" class="progress-bar"></div>-->
-<!--                                        </div>-->
-<!--                                    </li>-->
-<!--                                 </ul>-->
-<!--                            </div>-->
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>预约人数变化折线图</h5>
+                        <div class="pull-right">
+                            <!-- You can add any customization options or controls here -->
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <!-- ECharts container for the second chart -->
+                                <div id="echarts-container2" style="width: 100%; height: 400px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
       </div>
     </div>
     <script th:src="@{/js/jquery.min.js}"></script>
     <script th:src="@{/js/bootstrap.min.js}"></script>
     <script th:src="@{/ajax/libs/flot/jquery.flot.js}"></script>
-    
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.2.2/dist/echarts.min.js"></script>
+
     <th:block th:include="include :: sparkline-js" />
     <script type="text/javascript">
-	    $(document).ready(function () {
-	
-	        var data3 = [[${data}]]
-            // var data3 = [
-            //     [gd(2024, 4, 9), 12],[gd(2024, 4, 10), 20],[gd(2024, 4, 11), 9]
-            // ];
+        $(document).ready(function () {
+            // Initialize ECharts instance
+            var myChart = echarts.init(document.getElementById('echarts-container'));
 
-            console.log(data3)
-	        var dataset = [
-	            {
-	                label: "订单数",
-	                data: data3,
-	                color: "#1ab394",
-	                bars: {
-	                    show: true,
-	                    align: "center",
-	                    barWidth: 24 * 60 * 60 * 600,
-	                    lineWidth: 0
-	                }
-	
-	            }
-	        ];
-	
-	
-	        // var options = {
-	        //     xaxis: {
-	        //         mode: "time",
-	        //         tickSize: [1, "day"],
-	        //         tickLength: 0,
-	        //         axisLabel: "Date",
-	        //         axisLabelUseCanvas: true,
-	        //         axisLabelFontSizePixels: 12,
-	        //         axisLabelFontFamily: 'Arial',
-	        //         axisLabelPadding: 10,
-	        //         color: "#838383"
-	        //     },
-	        //     yaxes: [{
-	        //             position: "left",
-	        //             max: 1070,
-	        //             color: "#838383",
-	        //             axisLabelUseCanvas: true,
-	        //             axisLabelFontSizePixels: 12,
-	        //             axisLabelFontFamily: 'Arial',
-	        //             axisLabelPadding: 3
-	        //     }, {
-	        //             position: "right",
-	        //             clolor: "#838383",
-	        //             axisLabelUseCanvas: true,
-	        //             axisLabelFontSizePixels: 12,
-	        //             axisLabelFontFamily: ' Arial',
-	        //             axisLabelPadding: 67
-	        //     }
-	        //     ],
-	        //     legend: {
-	        //         noColumns: 1,
-	        //         labelBoxBorderColor: "#000000",
-	        //         position: "nw"
-	        //     },
-	        //     grid: {
-	        //         hoverable: false,
-	        //         borderWidth: 0,
-	        //         color: '#838383'
-	        //     }
-	        // };
-            var options = {
-                series: {
-                    bars: {
-                        show: true,
-                        barWidth: 24 * 60 * 60 * 1000, // 一天的毫秒数，确定柱子的宽度
-                        align: "center" // 将柱子居中显示在刻度上
-                    }
+            // Make AJAX request to backend endpoint
+            $.ajax({
+                url: '/chart1', // Backend endpoint URL
+                type: 'GET',
+                success: function (data) {
+                    // Extract dates and values from the received data
+                    var dates = Object.keys(data.data);
+                    var values = Object.values(data.data);
+
+                    // Specify chart configuration and data
+                    var option = {
+                        color: ['#3398DB'],
+                        tooltip: {
+                            trigger: 'axis',
+                            axisPointer: {
+                                type: 'shadow'
+                            }
+                        },
+                        grid: {
+                            left: '3%',
+                            right: '4%',
+                            bottom: '3%',
+                            containLabel: true
+                        },
+                        xAxis: [
+                            {
+                                type: 'category',
+                                data: dates, // Use dates received from backend as x-axis data
+                                axisTick: {
+                                    alignWithLabel: true
+                                }
+                            }
+                        ],
+                        yAxis: [
+                            {
+                                type: 'value'
+                            }
+                        ],
+                        series: [
+                            {
+                                name: '订单数',
+                                type: 'bar',
+                                barWidth: '60%',
+                                data: values // Use values received from backend as y-axis data
+                            }
+                        ]
+                    };
+
+                    // Use the specified configuration and data
+                    myChart.setOption(option);
                 },
-                xaxis: {
-                    mode: "time",
-                    tickSize: [1, "day"], // 每天显示一个刻度
-                    timeformat: "%m-%d", // 设置日期格式
-                    color: "#838383"
-                },
-                yaxis: {
-                    min: 1, // y轴最小值
-                    max: 100, // y轴最大值
-                    color: "#838383",
-                    axisLabelUseCanvas: true,
-                    axisLabelFontSizePixels: 12,
-                    axisLabelFontFamily: 'Arial',
-                    axisLabelPadding: 3
-                },
-                legend: {
-                    show: false // 不显示图例
-                },
-                grid: {
-                    hoverable: false,
-                    borderWidth: 0,
-                    color: '#838383'
+                error: function (xhr, status, error) {
+                    console.error('Error fetching data:', error);
                 }
-            };
-
-            function gd(year, month, day) {
-	            return new Date(year, month - 1, day).getTime();
-	        }
-	
-	        var previousPoint = null,
-	            previousLabel = null;
-	
-	        $.plot($("#flot-dashboard-chart"), dataset, options);
-	    });
+            });
+        });
     </script>
+    <script type="text/javascript">
+        // Initialize ECharts instance for the second chart
+        var myChart2 = echarts.init(document.getElementById('echarts-container2'));
+
+        // Make an AJAX request to fetch data
+        $.ajax({
+            url: '/chart2', // Replace 'your_backend_endpoint_here' with your actual backend endpoint
+            method: 'GET',
+            success: function(response) {
+                // Process the response data
+                var xAxisData = [];
+                var seriesData = [];
+                $.each(response.data, function(date, value) {
+                    xAxisData.push(date);
+                    seriesData.push(value);
+                });
+
+                // Specify chart configuration and data for the second chart using fetched data
+                var option2 = {
+                    xAxis: {
+                        type: 'category',
+                        data: xAxisData
+                    },
+                    yAxis: {
+                        type: 'value'
+                    },
+                    series: [{
+                        data: seriesData,
+                        type: 'line'
+                    }]
+                };
+
+                // Use the specified configuration and data for the second chart
+                myChart2.setOption(option2);
+            },
+            error: function(xhr, status, error) {
+                // Handle error
+                console.error(error);
+            }
+        });
+    </script>
+
 </body>
 </html>

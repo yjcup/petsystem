@@ -297,6 +297,9 @@ public class ShiroConfig
         filterChainDefinitionMap.put("/","anon");
         filterChainDefinitionMap.put("/shop","anon");
         filterChainDefinitionMap.put("/test","anon");
+        filterChainDefinitionMap.put("/chart1","anon");
+
+        filterChainDefinitionMap.put("/chart2","anon");
 
 //        filterChainDefinitionMap.put("/adopt","anon");
 //        filterChainDefinitionMap.put("/pet/**","anon");

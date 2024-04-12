@@ -3,6 +3,8 @@ package com.ruoyi.system.controller;
 import java.util.List;
 
 import com.ruoyi.common.utils.ShiroUtils;
+import com.ruoyi.system.domain.Pet;
+import com.ruoyi.system.service.impl.PetServiceImpl;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -107,12 +109,24 @@ public class PetApplyControllerFrom extends BaseController
     /**
      * 修改保存我的领养
      */
+
+    @Autowired
+    private PetServiceImpl petService;
+
     @RequiresPermissions("system:apply:edit")
     @Log(title = "我的领养", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
     @ResponseBody
     public AjaxResult editSave(PetApply petApply)
     {
+
+
+        // 如何发现领养成功 则修改状态
+        if(petApply.getStatus().equals("1")){
+            Pet pet = petService.selectPetById(petApply.getPetId());
+            pet.setStatus("1");
+            petService.insertPet(pet);
+        }
         return toAjax(petApplyService.updatePetApply(petApply));
     }
 

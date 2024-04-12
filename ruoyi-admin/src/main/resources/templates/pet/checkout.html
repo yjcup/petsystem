@@ -77,8 +77,8 @@
         <div class="breadcrumb_section">
           <div class="container">
             <ul class="breadcrumb_nav ul_li">
-              <li><a href="index.html">Home</a></li>
-              <li>Empty Cart</li>
+              <li><a href="/index">主页</a></li>
+              <li>结算</li>
             </ul>
           </div>
         </div>
@@ -251,6 +251,7 @@
           success: function(response) {
             // 处理成功响应
             console.log('Success:', response);
+            location.href="/cart"
           },
           error: function(xhr, status, error) {
             // 处理错误响应

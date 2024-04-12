@@ -35,6 +35,8 @@
     <link rel="stylesheet" type="text/css" href="/assets/css/nice-select.css">
 
     <!-- custom - css include -->
+    <link href="//unpkg.com/layui@2.9.3/dist/css/layui.css" rel="stylesheet">
+
     <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
 <style>
   #res img {
@@ -286,6 +288,8 @@
 
     <!-- custom - jquery include -->
     <script src="/assets/js/main.js"></script>
+    <script src="//unpkg.com/layui@2.9.3/dist/layui.js"></script>
+
     <script>
       $(document).ready(function() {
         // 给按钮绑定点击事件
@@ -317,6 +321,10 @@
             success: function(response) {
               // 请求成功，可以在这里处理返回的数据
               console.log(response);
+              layui.use(function () {
+                var layer = layui.layer;
+                layer.alert("领养申请提交成功😊！！！")
+              })
             },
             error: function(xhr, status, error) {
               // 请求失败，处理错误

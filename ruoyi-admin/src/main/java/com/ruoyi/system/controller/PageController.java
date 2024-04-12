@@ -21,6 +21,8 @@ import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.*;
 
 @Controller
@@ -45,14 +47,18 @@ public class PageController{
         List<Integer> integers = new ArrayList<>();
         if(ShiroUtils.getSysUser()!=null){
             integers = recommendationSystem.recommendProducts(Math.toIntExact(ShiroUtils.getUserId()));
-
         }
         List<Product> recpro = new ArrayList<>();
         for(Integer i:integers){
             Product product = productService.selectProductById(Long.valueOf(i));
             recpro.add(product);
         }
-        modelMap.put("recpros",recpro);
+        if (recpro.isEmpty()){
+            modelMap.put("recpros",products);
+        }else{
+            modelMap.put("recpros",recpro);
+        }
+//        modelMap.put("recpros",recpro);
         return "pet/index";
     }
 
@@ -236,6 +242,70 @@ public class PageController{
     private IPetApplyService petApplyService;
 
 
+
+
+
+    @GetMapping("/chart1")
+    @ResponseBody
+    public AjaxResult getchart1(){
+        // Get list of orders from the database within the last 7 days
+        LocalDate today = LocalDate.now();
+        LocalDate sevenDaysAgo = today.minusDays(6); // 7 days ago
+        List<SysOrder> sysOrders = orderService.selectSysOrderList(new SysOrder());
+
+        // Initialize a map to store the count of orders for each day
+        Map<LocalDate, Integer> orderCounts = new HashMap<>();
+
+        // Initialize orderCounts with 0 for each day within the last 7 days
+        LocalDate date = sevenDaysAgo;
+        while (!date.isAfter(today)) {
+            orderCounts.put(date, 0);
+            date = date.plusDays(1);
+        }
+
+        // Iterate through the orders and count the number of orders for each day
+        for (SysOrder order : sysOrders) {
+            // Convert java.util.Date to LocalDate
+            LocalDate orderDate = order.getCreateTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            orderCounts.put(orderDate, orderCounts.get(orderDate) + 1);
+        }
+
+        // Return the order counts as JSON response
+        return AjaxResult.success(orderCounts);
+    }
+
+    @GetMapping("/chart2")
+    @ResponseBody
+    public AjaxResult getchart2(){
+        LocalDate today = LocalDate.now();
+        LocalDate sevenDaysAgo = today.minusDays(6); // 7 days ago
+        List<PetRes> sysOrders = petResService.selectPetResList(new PetRes());
+
+        // Initialize a map to store the count of orders for each day
+        Map<LocalDate, Integer> orderCounts = new HashMap<>();
+
+        // Initialize orderCounts with 0 for each day within the last 7 days
+        LocalDate date = sevenDaysAgo;
+        while (!date.isAfter(today)) {
+            orderCounts.put(date, 0);
+            date = date.plusDays(1);
+        }
+
+        // Iterate through the orders and count the number of orders for each day
+        for (PetRes order : sysOrders) {
+            // Convert java.util.Date to LocalDate
+            LocalDate orderDate = order.getCreateTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            orderCounts.put(orderDate, orderCounts.get(orderDate) + 1);
+        }
+
+        // Return the order counts as JSON response
+        return AjaxResult.success(orderCounts);
+    }
+
+
+
+
+
     @PostMapping("/pet/res")
     @ResponseBody
     public String  petres(@RequestParam Map<String,Object> map){
@@ -257,7 +327,9 @@ public class PageController{
     @GetMapping("/adopt")
     public String adopt(@RequestParam(required = false, defaultValue = "1") Integer page, ModelMap model){
         PageHelper.startPage(page,8);
-        List<Pet> pets = petService.selectPetList(new Pet());
+        Pet pet = new Pet();
+        pet.setStatus("0");
+        List<Pet> pets = petService.selectPetList(pet);
         PageInfo<Pet> info = new PageInfo<>(pets);
         model.put("info",info);
         model.put("currentPage",page);

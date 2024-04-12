@@ -163,15 +163,17 @@ public class SysIndexController extends BaseController
         int ressize = resService.selectPetResList(new PetRes()).size();
         int usersize = sysUserRoleMapper.countUserRoleByRoleId(100L);
         List<SysOrder> sysOrders = sysOrderService.selectSysOrderList(new SysOrder());
-        Map<String, Integer> stringIntegerMap = countOrdersByDay(sysOrders);
-        System.out.println(stringIntegerMap);
-        mmap.put("data",mapToJsonArray(stringIntegerMap));
         mmap.put("ordersize",orderssize);
         mmap.put("petsize",petsize);
         mmap.put("ressize",ressize);
         mmap.put("usersize",usersize);
-
         SysRole sysRole = ShiroUtils.getSysUser().getRoles().get(0);
+
+
+
+
+
+
         if (sysRole.getRoleKey().equals("manager")){
             return "main_v1";
         }
@@ -179,38 +181,6 @@ public class SysIndexController extends BaseController
     }
 
 
-    public static  String mapToJsonArray(Map<String, Integer> map) {
-        StringBuilder jsonArray = new StringBuilder("[");
-        for (Map.Entry<String, Integer> entry : map.entrySet()) {
-            jsonArray.append("[gd(" + entry.getKey() + "), " + entry.getValue()+100 + "]");
-            jsonArray.append(",");
-        }
-        jsonArray.deleteCharAt(jsonArray.length() - 1); // 删除最后一个逗号
-        jsonArray.append("]");
-        System.out.println(jsonArray.toString());
-        return jsonArray.toString();
-    }
-
-    public static Map<String, Integer> countOrdersByDay(List<SysOrder> orders) {
-        Map<String, Integer> orderCounts = new HashMap<>();
-
-        for (SysOrder order : orders) {
-            // 获取订单的创建时间
-            Date createTime = order.getCreateTime();
-            // 格式化创建时间为日期字符串
-            String day = formatDateToDay(createTime);
-            // 将订单添加到对应日期的订单量中，如果该日期的订单量已存在，则将其数量加1，否则初始化为1
-            orderCounts.put(day, orderCounts.getOrDefault(day, 0) + 1);
-        }
-
-        return orderCounts;
-    }
-
-    // 将日期格式化为"yyyy-MM-dd"的字符串
-    private static String formatDateToDay(Date date) {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy, MM, dd");
-        return formatter.format(date);
-    }
 
     // content-main class
     public String contentMainClass(Boolean footer, Boolean tagsView)
