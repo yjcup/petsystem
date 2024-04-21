@@ -267,7 +267,9 @@ public class PageController{
         for (SysOrder order : sysOrders) {
             // Convert java.util.Date to LocalDate
             LocalDate orderDate = order.getCreateTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            orderCounts.put(orderDate, orderCounts.get(orderDate) + 1);
+            if(orderCounts.containsKey(orderDate)){
+                orderCounts.put(orderDate, orderCounts.get(orderDate) + 1);
+            }
         }
 
         // Return the order counts as JSON response
@@ -295,7 +297,9 @@ public class PageController{
         for (PetRes order : sysOrders) {
             // Convert java.util.Date to LocalDate
             LocalDate orderDate = order.getCreateTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            orderCounts.put(orderDate, orderCounts.get(orderDate) + 1);
+            if(orderCounts.containsKey(orderDate)){
+                orderCounts.put(orderDate, orderCounts.get(orderDate) + 1);
+            }
         }
 
         // Return the order counts as JSON response
