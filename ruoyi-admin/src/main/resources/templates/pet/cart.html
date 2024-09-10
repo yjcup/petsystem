@@ -361,6 +361,26 @@
       submitSelectedItems();
     });
   });
+  $(document).ready(function() {
+    // 处理增加按钮点击事件
+    $('.quantity_input').on('click', '.input_number_increment', function() {
+      var $input = $(this).siblings('.input_number');
+      var currentValue = parseInt($input.val(), 10);
+      if (!isNaN(currentValue)) {
+        $input.val(currentValue + 1);
+      }
+    });
+
+    // 处理减少按钮点击事件
+    $('.quantity_input').on('click', '.input_number_decrement', function() {
+      var $input = $(this).siblings('.input_number');
+      var currentValue = parseInt($input.val(), 10);
+      if (!isNaN(currentValue) && currentValue > 1) {
+        $input.val(currentValue - 1);
+      }
+    });
+  });
+
 
 </script>
 </html>

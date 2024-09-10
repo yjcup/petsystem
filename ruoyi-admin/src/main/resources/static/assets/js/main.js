@@ -156,7 +156,7 @@
     infinite: true,
     autoplay: true,
     slidesToShow: 1,
-    autoplaySpeed: 6000,
+    autoplaySpeed: 3000,
   });
   $('.ms_nav_thumbnails').slick({
     dots: false,
@@ -692,8 +692,8 @@
       }
     };
   })();
-  inputNumber($(".input_number"));
-  inputNumber($(".input_number_2"));
+  // inputNumber($(".input_number"));
+  // inputNumber($(".input_number_2"));
   // quantity - end
   // --------------------------------------------------
 

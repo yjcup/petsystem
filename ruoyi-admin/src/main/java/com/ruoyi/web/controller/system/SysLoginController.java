@@ -52,7 +52,7 @@ public class SysLoginController extends BaseController
         // 是否开启记住我
         mmap.put("isRemembered", rememberMe);
         // 是否开启用户注册
-        mmap.put("isAllowRegister", Convert.toBool(configService.getKey("sys.account.registerUser"), false));
+        mmap.put("isAllowRegister", Convert.toBool(configService.getKey("sys.account.registerUser"), true));
         return "login";
     }
 

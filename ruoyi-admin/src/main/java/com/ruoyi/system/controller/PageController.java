@@ -96,6 +96,18 @@ public class PageController{
         return "pet/shop_list";
     }
 
+    @GetMapping("/asdf")
+    public String asdf(ModelMap map){
+        // 1.通过mybaits去数据库里查数据
+        Pet pet = petService.selectPetById(1L);
+        map.put("pet",pet);
+
+        return "pet/res";
+    }
+
+
+
+
 
     @GetMapping("/reservation")
     public String Reservation(){
@@ -325,7 +337,6 @@ public class PageController{
         petApply.setToId(ShiroUtils.getUserId());
         petApplyService.insertPetApply(petApply);
         // 返回响应
-        // 我的
         return "Adoption request received successfully!";
     }
     @GetMapping("/adopt")
